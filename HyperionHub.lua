@@ -1287,7 +1287,7 @@ end)
 end
 	    local DropdownSelectWeapon = Tabs.Main:AddDropdown("DropdownSelectWeapon", {
         Title = "Weapon",
-        Values = {'Melee','Sword','Blox Fruits'},
+        Values = {'Melee','Sword','Blox Fruit'},
         Multi = false,
         Default = 1,
     })
@@ -1314,13 +1314,22 @@ end
                             end
                         end
                     end
-                elseif ChooseWeapon == " Blox Fruits" then
+                elseif ChooseWeapon == " Blox Fruit" then
                     for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                         if v.ToolTip == "Blox Fruit" then
                             if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
                                 SelectWeapon = v.Name
                             end
-                      end
+                        end
+                    end
+                else
+                    for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                        if v.ToolTip == "Melee" then
+                            if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+                                SelectWeapon = v.Name
+                            end
+                        end
+                    end
                 end
             end)
         end
