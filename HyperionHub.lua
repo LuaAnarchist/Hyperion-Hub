@@ -1,34 +1,3 @@
---- Check Client 
-
-local exploit = getexecutorname or identifyexecutor
-
-
-local hello = {
-    ["Fluxus"] = true,
-    ["Hydrogen"] = true,
-    ["Arceus"] = true,
-    ["Delta"] = true,
-    ["Solara"] = false,
-    ["Codex"] = true,
-    ["Wave"] = true,
-    ["Vegax"] = true,
-    ["Trigon"] = true,
-    ["Ronix"] = false,
-    ["Illusion"] = true,
-    ["Swift"] = true,
-    ["Xeno"] = true,
-    ["Zorara"] = true,
-    ["Cryptic"] = true,
-    ["Argon"] = true,
-    ["Atlantis"] = false,
-}
-
-
-if hello[exploit()] == false then
-    game:GetService("Players").LocalPlayer:Kick("Not Support " .. exploit() .. " | Client Bạn Đang Sử Dụng Không Hỗ Trợ Script Chúng Tôi" .. exploit())
-else
-print("Hyperion Hub On Top!")
-end
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
@@ -56,7 +25,7 @@ game:GetService("Players").LocalPlayer.Idled:connect(function()
 	wait(1)
 	game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
-
+Print("Hyperion Hub On Top!")
 
 First_Sea = false
 Second_Sea = false
