@@ -16,7 +16,212 @@ local Tabs = {
     Setting = Window:AddTab({ Title = "Settings", Icon = "settings" }),
 }
 local Options = Fluent.Options
+----------------------------------—‐-----------‐-‐—---
+local playerGui = game:GetService("Players").LocalPlayer.PlayerGui
 
+local lonmauirac = playerGui:FindFirstChild("Main (minimal)")
+
+local success, err = pcall(function()
+    if lonmauirac then
+        local chomaubuoi = lonmauirac:FindFirstChild("ChooseTeam")
+        if chomaubuoi then
+            repeat wait()
+                if chomaubuoi.Visible == true then
+                    if _G.Team == "Pirates" then
+                        for i, v in pairs(getconnections(chomaubuoi.Container.Pirates.Frame.TextButton.Activated)) do
+                            v.Function()
+                        end
+                    elseif _G.Team == "Marines" then
+                        for i, v in pairs(getconnections(chomaubuoi.Container.Marines.Frame.TextButton.Activated)) do
+                            v.Function()
+                        end
+                    else
+                        for i, v in pairs(getconnections(chomaubuoi.Container.Pirates.Frame.TextButton.Activated)) do
+                            v.Function()
+                        end
+                    end
+                end
+            until game.Players.LocalPlayer.Team ~= nil
+        else
+        end
+    else
+    end
+end)
+
+if not success then
+    warn("have errorr: " .. err)
+end 
+
+if _G.FixLag == nil then
+    _G.FixLag = false
+end
+
+local function fixLag()
+    local g = game
+    local w = g.Workspace
+    local l = g.Lighting
+    local t = w.Terrain
+
+    if l:FindFirstChild("FantasySky") then
+        l.FantasySky:Destroy()
+    end
+
+    t.WaterWaveSize = 0
+    t.WaterWaveSpeed = 0
+    t.WaterReflectance = 0
+    t.WaterTransparency = 0
+
+    l.GlobalShadows = false
+    l.FogEnd = 9e9
+    l.Brightness = 0
+
+    settings().Rendering.QualityLevel = "Level01"
+
+    for _, v in pairs(g:GetDescendants()) do
+        if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then 
+            v.Material = "Plastic"
+            v.Reflectance = 0
+        elseif v:IsA("Decal") or v:IsA("Texture") then
+            v.Transparency = 1
+        elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+            v.Lifetime = NumberRange.new(0)
+        elseif v:IsA("Explosion") then
+            v.BlastPressure = 1
+            v.BlastRadius = 1
+        elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
+            v.Enabled = false
+        elseif v:IsA("MeshPart") then
+            v.Material = "Plastic"
+            v.Reflectance = 0
+            v.TextureID = 10385902758728957
+        end
+    end
+
+    for _, e in pairs(l:GetChildren()) do
+        if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+            e.Enabled = false
+        end
+    end
+
+    for _, v in pairs(w.Camera:GetDescendants()) do
+        if v.Name == "Water;" then
+            v.Transparency = 1
+            v.Material = "Plastic"
+        end
+    end
+end
+
+if _G.FixLag then
+    local success, err = pcall(fixLag)
+    if not success then
+        warn("Error occurred while fixing lag: " .. tostring(err))
+    end
+else
+    print("Lag reduction is disabled. Set _G.FixLag to true to enable it.")
+end
+
+_G.SafeFarm = true
+assert(getrawmetatable)
+    grm = getrawmetatable(game)
+    setreadonly(grm, false)
+    old = grm.__namecall
+    grm.__namecall = newcclosure(function(self, ...)
+        local args = {...}
+        if tostring(args[1]) == "TeleportDetect" then
+            return
+        elseif tostring(args[1]) == "CHECKER_1" then
+            return
+        elseif tostring(args[1]) == "CHECKER" then
+            return
+        elseif tostring(args[1]) == "GUI_CHECK" then
+            return
+        elseif tostring(args[1]) == "OneMoreTime" then
+            return
+        elseif tostring(args[1]) == "checkingSPEED" then
+            return
+        elseif tostring(args[1]) == "BANREMOTE" then
+            return
+        elseif tostring(args[1]) == "PERMAIDBAN" then
+            return
+        elseif tostring(args[1]) == "KICKREMOTE" then
+            return
+        elseif tostring(args[1]) == "BR_KICKPC" then
+            return
+        elseif tostring(args[1]) == "BR_KICKMOBILE" then
+            return
+        end
+        return old(self, ...)
+    end)
+function CheckAntiCheatBypass()
+    for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+        if v:IsA("LocalScript") then
+            if v.Name == "General" or v.Name == "Shiftlock"  or v.Name == "FallDamage" or v.Name == "4444" or v.Name == "CamBob" or v.Name == "JumpCD" or v.Name == "Looking" or v.Name == "Run" then
+                v:Destroy()
+            end
+        end
+     end
+     for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerScripts:GetDescendants()) do
+        if v:IsA("LocalScript") then
+            if v.Name == "RobloxMotor6DBugFix" or v.Name == "CustomForceField" or v.Name == "MenuBloodSp"  or v.Name == "PlayerList" then
+                v:Destroy()
+            end
+        end
+    end
+end
+
+local function bypassAntiExploit()
+    for _, instance in ipairs(filtergc()) do
+        if instance:IsA("AntiExploitSystem") then
+            instance:Destroy()
+        end
+    end
+end
+spawn(function()
+    while wait() do
+        if _G.SafeFarm then
+            pcall(function()
+                CheckAntiCheatBypass()
+                bypassAntiExploit()
+            end)
+        end
+    end
+end)
+function intiAppleHub() 
+_G.antiscan = true
+getgenv().A = require(game:GetService("ReplicatedStorage").CombatFramework.RigLib).wrapAttackAnimationAsync
+getgenv().B = require(game.Players.LocalPlayer.PlayerScripts.CombatFramework.Particle).play
+_G.setfflag = true
+end
+spawn(function()
+    while wait() do
+        if _G.setfflag then
+            setfflag("AbuseReportScreenshot", "False")
+            setfflag("AbuseReportScreenshotPercentage", "0")
+        end
+    end
+end)
+_G.AntiFlagReset = true
+spawn(function()
+    while wait(2000) do
+        if _G.AntiFlagReset then
+            pcall(function()
+            game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+        end)
+    end
+   end
+end)
+
+spawn(function()
+    while _G.AntiFlagReset do task.wait()
+        if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+            local HealthPercent = game.Players.LocalPlayer.Character.Humanoid.Health / game.Players.LocalPlayer.Character.Humanoid.MaxHealth * 100
+            if HealthPercent < 50 then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 100, 0)
+            end
+        end
+        task.wait()
+    end
+end)
 if game.PlaceId == 2753915549 then
         World1 = true
     elseif game.PlaceId == 4442272183 then
