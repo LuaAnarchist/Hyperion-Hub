@@ -1,7 +1,4 @@
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
-local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
-
 local Window = Fluent:CreateWindow({
     Title = "Hyperion Hub",
     SubTitle = "Main Blox Fruits",
@@ -53,8 +50,8 @@ if not success then
     warn("have errorr: " .. err)
 end 
 
-if _G.FixLag == nil then
-    _G.FixLag = false
+if _G.SmoothFps == nil then
+    _G.SmoothFps = false
 end
 
 local function fixLag()
@@ -112,13 +109,13 @@ local function fixLag()
     end
 end
 
-if _G.FixLag then
+if _G.SmoothFps then
     local success, err = pcall(fixLag)
     if not success then
         warn("Error occurred while fixing lag: " .. tostring(err))
     end
 else
-    print("Lag reduction is disabled. Set _G.FixLag to true to enable it.")
+    print("Đã Fix Lag Xong.")
 end
 
 _G.SafeFarm = true
