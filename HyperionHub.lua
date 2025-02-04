@@ -16,6 +16,7 @@ local Tabs = {
     Setting = Window:AddTab({ Title = "Settings", Icon = "settings" }),
 }
 local Options = Fluent.Options
+do
 ----------------------------------—‐-----------‐-‐—---
 local playerGui = game:GetService("Players").LocalPlayer.PlayerGui
 
